@@ -37,18 +37,19 @@ def analyzeDoc(imageConvPath, analyzerPrompt):
                 encoded_image = base64.b64encode(f.read()).decode("utf-8")
                 encodedImages.append(encoded_image)
 
-    parsedDoc = call_bedrock(modelId="anthropic.claude-3-sonnet-20240229-v1:0", maxTokens = 32768, encodedImages = encodedImages, textPrompt = analyzerPrompt)
+    #parsedDoc = call_bedrock(modelId="anthropic.claude-3-sonnet-20240229-v1:0", maxTokens = 32768, encodedImages = encodedImages, textPrompt = analyzerPrompt)
+    parsedDoc = call_bedrock(modelId="anthropic.claude-3-5-sonnet-20240620-v1:0", maxTokens = 32768, encodedImages = encodedImages, textPrompt = analyzerPrompt)
     return parsedDoc
     
 def classifyDoc(pdfDocIo, pdfDocPath):
     if bluePrintList == "":
         getConfig()
         
-    #print(f"Blueprints: {bluePrintList}")
+    print(f"Blueprints: {bluePrintList}")
         
     returnVal = {}
     classificationPrompt = "classify the document type between " + bluePrintList + " and Others. Only return document type and nothing else"
-    #print(classificationPrompt)
+    print(classificationPrompt)
     
     imageConvPath = ""
     if pdfDocPath is not None:
@@ -146,7 +147,7 @@ def getConfig():
     
     if 'bluePrints' in bluePrintConfig:    
         bluePrintList = ', '.join([str(elem) for elem in list(bluePrintConfig['bluePrints'].keys())])
-
+    print(bluePrintList)
 if __name__ == "__main__":
     docTypeOutput = classifyDoc(pdfDocIo = {'fileName': None, 'fileData': None}, pdfDocPath = "pdf_documents/70.pdf")
     print(docTypeOutput)

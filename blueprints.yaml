@@ -1,18 +1,19 @@
 bluePrints:
-    bankStatement:
-        displayName: Bank Statement
+    Others:
+        displayName: Others
         textPrompt: >
-            return the statement summary and transactions in JSON format.
-            summary fields to be included are: account_beginning_balance, account_ending_balance, account_holder_name, account_holder_city, account_holder_state, account_holder_street_address, account_holder_zipcode,
-            account_number, account_owned_by, asset_type, compute_final_balance, currency,
-            final_balance_correct, financial_institution, has_payment_to_IRS, statement_start_date (format the output as dd-MMM-yyyy),
-            statement_end_date (format the output as dd-MMM-yyyy), statement_issue_date (format the output as dd-MMM-yyyy), total_page_count, total_debit_transactions_count, total_credit_transactions_count in the summary fields.
-            compute_final_balance to be calculated as account_beginning_balance + sum(credit transactions) - sum(debit transactions).
-            transaction fields to be included are: date, debit (strip commas and return 0 if not present), credit (strip commas and return 0 if not present), description.
+            Extract the information. Include all fields present in the document,
+            Maintain the original language of each field (e.g. Arabic or English) as it appears in the source data. Do not translate any information.
+            Return the extracted data in a structured JSON format. The JSON should contain key-value pairs for each field,
+            with keys in English and values in the original language (Arabic or English) as found in the document.
+            Do not include any additional text, headers, or footers outside the JSON structure.
+            The response should consist solely of the JSON object.
     identityDocument:
         displayName: Identity Document
         textPrompt: >
             Extract the information. Also include the fields for identity document type and country.
             Except identity document type and country, don't include any field not present in the document.
-            Entire response must be translated to English language if not already in the same and must be returned in JSON format.
+            Maintain the original language of each field (e.g. Arabic or English) as it appears in the source data.
+            Do not translate any information.
+            Entire response must be returned in JSON format.
             Include only JSON and no additional header or footers.
